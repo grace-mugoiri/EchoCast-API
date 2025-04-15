@@ -1,8 +1,9 @@
-from flask import BluePrint, request, jsonify
+from flask import Blueprint, request, jsonify
 from .models import Episodes
 from . import db
 
-main = BluePrint('main', __name__)
+main = Blueprint('main', __name__)
+
 @main.route("/episodes", methods=["GET"])
 def get_episodes():
     episodes = Episodes.query.all()
@@ -25,4 +26,3 @@ def add_episode():
     db.session.add(new_episode)
     db.session.commit()
     return jsonify({"message": "Episode added"}), 201
-    
